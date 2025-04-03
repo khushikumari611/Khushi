@@ -13,7 +13,7 @@ If you have enabled **GitHub Pages**, you can access the site using the followin
 4. GitHub will provide a link to access your hosted page.
 
 ## File Structure
-- `Khushi20.html` - Main HTML file.
+- index.html - Main HTML file.
 
 ## Author
 [Khushikumari611](https://github.com/khushikumari611)
