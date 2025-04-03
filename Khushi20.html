@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise</title>
+    <style>
+        body {
+            background-color: #FFC0CB;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 1s ease-in-out;
+        }
+        .active {
+            display: flex;
+            opacity: 1;
+        }
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .quote {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .falling-elements {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .falling-item {
+            position: absolute;
+            top: -50px;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-100px); }
+            to { transform: translateY(100vh); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .options {
+            display: flex;
+            gap: 20px;
+        }
+        .options button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .green { background-color: green; color: white; }
+        .red { background-color: red; color: white; }
+    </style>
+</head>
+<body>
+    <div class="falling-elements"></div>
+    <script>
+        function createFallingElements() {
+            const items = ['🌸', '✨', '🎉'];
+            for (let i = 0; i < 20; i++) {
+                let item = document.createElement("div");
+                item.innerHTML = items[Math.floor(Math.random() * items.length)];
+                item.className = "falling-item";
+                item.style.left = Math.random() * 100 + "vw";
+                item.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.querySelector(".falling-elements").appendChild(item);
+            }
+        }
+        createFallingElements();
+    </script>
+    <div class="slide active" id="slide1">
+        <div class="title">SURPRISE</div>
+        <div class="quote">Hi! This is your madam ji</div>
+    </div>
+    <div class="slide" id="slide2">
+        <div class="quote">Let's do a quick question session</div>
+    </div>
+    <div class="slide" id="slide3">
+        <div class='quote'>Are you a good girl?</div>
+        <div class="options">
+            <button class='green' onclick='nextSlide(4)'>Yes</button>
+            <button class='red' onclick='stayHere()'>No</button>
+        </div>
+    </div>
+    <div class="slide" id="slide4">
+        <div class='quote'>Did you study well?</div>
+        <div class="options">
+            <button class='green' onclick='nextSlide(5)'>Yes</button>
+            <button class='red' onclick='stayHere()'>No</button>
+        </div>
+    </div>
+    <div class="slide" id="slide5">
+        <div class='quote'>Am I your madam ji?</div>
+        <div class="options">
+            <button class='green' onclick='nextSlide(6)'>Yes</button>
+            <button class='green' onclick='nextSlide(6)'>Yes</button>
+        </div>
+    </div>
+    <div class="slide" id="slide6">
+        <div class='quote'>Wow! You passed the test! Well done</div>
+    </div>
+    <div class="slide" id="slide7">
+        <div class='quote'>I hope you are fine and healthy. Don't ever feel alone, I am always there for you.</div>
+    </div>
+    <div class="slide" id="slide8">
+        <div class='quote'>I hope I made your day a little bit better</div>
+    </div>
+    <div class="slide" id="slide9">
+        <div class='quote'>Lots of love, mauhh ❤️</div>
+    </div>
+    <script>
+        let currentSlide = 1;
+        function nextSlide(num) {
+            document.querySelector('.slide.active').classList.remove('active');
+            document.getElementById('slide' + num).classList.add('active');
+            currentSlide = num;
+            autoSlide();
+        }
+        function stayHere() {
+            alert("Try again!");
+        }
+        function autoSlide() {
+            let slidesToAutoAdvance = [1, 2, 6, 7, 8, 9];
+            if (slidesToAutoAdvance.includes(currentSlide)) {
+                setTimeout(() => {
+                    document.querySelector('.slide.active').classList.remove('active');
+                    currentSlide++;
+                    if (document.getElementById('slide' + currentSlide)) {
+                        document.getElementById('slide' + currentSlide).classList.add('active');
+                        autoSlide();
+                    }
+                }, 5000);
+            }
+        }
+        autoSlide();
+    </script>
+</body>
+</html>
